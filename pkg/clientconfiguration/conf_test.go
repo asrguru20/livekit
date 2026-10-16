@@ -70,6 +70,7 @@ func TestStaticConfigurationAV1(t *testing.T) {
 	// Firefox 157 decodes every layer, so it keeps AV1
 	require.False(t, av1Disabled(&livekit.ClientInfo{Browser: "firefox", BrowserVersion: "157.0", Os: "windows"}))
 	require.False(t, av1Disabled(&livekit.ClientInfo{Browser: "firefox", BrowserVersion: "158.0.2", Os: "windows"}))
+	// should not be disabled for Chrome
 	require.False(t, av1Disabled(&livekit.ClientInfo{Browser: "chrome", Os: "linux"}))
 
 	// Firefox for Android keeps the AV1 rule alongside its H.264 publish rule
