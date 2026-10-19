@@ -1,0 +1,16 @@
+{
+  "release": "1.13.10-interlan.2",
+  "repository": "https://github.com/asrguru20/livekit",
+  "base_tag": "v1.13.10",
+  "base_commit": "e5655ac20267fa5005dccaf3f0e3bfc3ea688c07",
+  "go_version": "go1.27.1",
+  "upstream_runtime": "livekit/livekit-server:v1.13.10@sha256:89ca9ce0791e18d6e03bf6e2c49ceb27e1c754eae8bd50c989386c1a5963791a",
+  "patches": [
+    {"pr": 5005, "commit": "d8aaa45dd1d545226727c331a3cee7a2dc1a1142", "purpose": "Use monotonic time for RTCP receiver-report delay"},
+    {"pr": 5006, "commit": "43291596c4845b05f7782ac9905f993e86559d37", "purpose": "Convert sender-report arrival to wall time; preserve unknown arrival"},
+    {"pr": 5008, "commit": "e357fdffb77a084a308e0284c31004e531fa4046", "purpose": "Make expected RTP timestamp clock domain explicit"},
+    {"pr": 5013, "commit": "18df6ad4b6942c74a6bd95832735addc0d2c6d87", "purpose": "Use padding when paused RTX probes cannot find old packets"},
+    {"pr": 5018, "commit": "103d7bec847a21581e3d4d8ac5518330bf22196f", "purpose": "Preserve timestamp cycles when switching simulcast sources"},
+    {"pr": 5019, "commit": "cde3991916cff973a228aee9323755fc46135874", "purpose": "Reset restart offset and avoid offset without a reference layer"}
+  ]
+}
