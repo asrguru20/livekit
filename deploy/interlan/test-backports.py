@@ -53,16 +53,19 @@ def execute(go, cwd, log, tests, packages):
     command = [go, "test", "-p=1", "-json", "-count=1", "-timeout=5m",
                "-run", pattern, *packages]
     print("Running " + log.stem, flush=True)
-    result = subprocess.run(command, cwd=cwd, text=True, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT, timeout=1800)
-    log.write_text(result.stdout, encoding="utf-8")
+    # Write during execution as well, so a slow compile or download can be
+    # diagnosed without waiting for the entire command or losing timeout logs.
+    with log.open("w", encoding="utf-8") as stream:
+        result = subprocess.run(command, cwd=cwd, text=True, stdout=stream,
+                                stderr=subprocess.STDOUT, timeout=1800)
+    output = log.read_text(encoding="utf-8")
     events = []
-    for line in result.stdout.splitlines():
+    for line in output.splitlines():
         try:
             events.append(json.loads(line))
         except json.JSONDecodeError:
             pass
-    return result.returncode, events, result.stdout
+    return result.returncode, events, output
 
 
 def test_outcome(events, name, action):
